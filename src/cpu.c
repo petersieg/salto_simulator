@@ -124,7 +124,7 @@ ntime_t alto_ntime;
 int alto_leave;
 
 /** @brief task names */
-const char *task_name[task_COUNT] = {
+static const char *task_name[task_COUNT] = {
 	"emu",		"task01",	"task02",	"task03",
 	"ksec",		"task05",	"task06",	"ether",
 	"mrt",		"dwt",		"curt",		"dht",
@@ -132,7 +132,7 @@ const char *task_name[task_COUNT] = {
 };
 
 /** @brief register names (as used by the microcode) */
-const char *r_name[rsel_COUNT] = {
+static const char *r_name[rsel_COUNT] = {
 	"ac3",		"ac2",		"ac1",		"ac0",
 	"nww",		"r05",		"pc",		"r07",
 	"xh",		"r11",		"ecntr",	"epntr",
@@ -144,7 +144,7 @@ const char *r_name[rsel_COUNT] = {
 };
 
 /** @brief ALU function names */
-const char *aluf_name[aluf_COUNT] = {
+static const char *aluf_name[aluf_COUNT] = {
 	"bus",		"t",		"bus or t",	"bus and t",
 	"bus xor t",	"bus + 1",	"bus - 1",	"bus + t",
 	"bus - t",	"bus - t - 1",	"bus + t + 1",	"bus + skip",
@@ -152,13 +152,13 @@ const char *aluf_name[aluf_COUNT] = {
 };
 
 /** @brief BUS source names */
-const char *bs_name[bs_COUNT] = {
+static const char *bs_name[bs_COUNT] = {
 	"read_r",	"load_r",	"no_source",	"task_3",
 	"task_4",	"read_md",	"mouse",	"disp"
 };
 
 /** @brief F1 function names */
-const char *f1_name[f1_COUNT] = {
+static const char *f1_name[f1_COUNT] = {
 	"nop",		"load_mar",	"task",		"block",
 	"l_lsh_1",	"l_rsh_1",	"l_lcy_8",	"const",
 	"task_10",	"task_11",	"task_12",	"task_13",
@@ -166,7 +166,7 @@ const char *f1_name[f1_COUNT] = {
 };
 
 /** @brief F2 function names */
-const char *f2_name[f2_COUNT] = {
+static const char *f2_name[f2_COUNT] = {
 	"nop",		"bus=0",	"shifter<0",	"shifter=0",
 	"bus",		"alucy",	"load_md",	"const",
 	"task_10",	"task_11",	"task_12",	"task_13",
