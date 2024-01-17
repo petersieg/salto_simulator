@@ -1203,7 +1203,9 @@ static void usage(int argc, char **argv)
 	drive_usage(argc, argv);
 	ether_usage(argc, argv);
 	printf("-dc		dump (Alto) core to file 'alto.dump' at exit\n");
-	printf("-kr		report unkown/unhandled key press (to stderr)\n");
+	printf("-ku		report unkown/unhandled key press (to stderr)\n");
+	printf("-kr		read kbd config from file: keyboard.conf\n");
+	printf("-kw		write kbd config to file: keyboard.conf\n");
 	printf("-b key		set a boot key (5,4,6,e,7,d,u,v,0,k,-,p,/,\\,lf,bs)\n");
 	printf("-d		start in paused mode and debug view\n");
 	printf("-h		display this help\n");
@@ -1254,8 +1256,12 @@ int main(int argc, char **argv)
 				/* drive code accepted the switch */
 			} else if (!strcmp(argv[i], "-dc")) {
 				dump = 1;	/* dump core at exit */
-			} else if (!strcmp(argv[i], "-kr")) {
+			} else if (!strcmp(argv[i], "-ku")) {
 				report_key = 1;	/* report unknown keys */
+			} else if (!strcmp(argv[i], "-kr")) {
+				kbd_config_read();	/* read kbd config from file "keyboard.conf" */
+			} else if (!strcmp(argv[i], "-kw")) {
+				kbd_config_write();	/* write kbd config to file "keyboard.conf" */
 			} else if (!strcmp(argv[i], "-d")) {
 				paused = 1;	/* start paused */
 				step = 0;	/* don't step */

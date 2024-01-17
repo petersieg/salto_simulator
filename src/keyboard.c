@@ -658,6 +658,7 @@ int kbd_config_read(void)
 		kbd_config_write();
 		return -1;
 	}
+	fprintf(stderr, "Read '%s' file.\n", keyboard_conf);
 
 	/* reset all entries to KEY_NONE */
 	for (i = 0; i < KEY_MAP_SIZE; i++) {
