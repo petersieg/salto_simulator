@@ -2,12 +2,22 @@ SALTO - Xerox Alto I/II Simulator.
 Copyright by Juergen Buchmueller <pullmoll@t-online.de>
 Partially based on info found in Eric Smith's Alto simulator: Altogether.
 
+0. Changelog:
+=============
+Jan. 2024:
 Minor changes to make it compile under GCC 10+ / Debian 11:
 
 With orig. code, LD gives error with multiple definitions. 
 Google suggest to make variables static. 
 Changes in cpu.h/s only were required.
 Compiles now with debian 11 and GCC 10.
+---
+Old -kr changed to -ku = report unknown keys
+-kw = write keyboard.conf file
+-kr = read keyboard.conf file - not required, because is done already at init!
+Hack to have [ ] with german kbd: 
+Key ^ gives [  - Shift gives {
+Key <Entf> gives ] - Shift gives }
 
 
 1.) Building
