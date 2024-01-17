@@ -2,8 +2,8 @@ SALTO - Xerox Alto I/II Simulator.
 Copyright by Juergen Buchmueller <pullmoll@t-online.de>
 Partially based on info found in Eric Smith's Alto simulator: Altogether.
 
-0. Changelog:
-=============
+0. Change log:
+==============
 Jan. 2024:
 Minor changes to make it compile under GCC 10+ / Debian 11:
 
