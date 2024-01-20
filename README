@@ -18,6 +18,9 @@ Old -kr changed to -ku = report unknown keys
 Hack to have [ ] with german kbd: 
 Key ^ gives [  - Shift gives {
 Key <Entf> gives ] - Shift gives }
+---
+Included unfinished tool aar for handling disk images.
+
 
 
 1.) Building
