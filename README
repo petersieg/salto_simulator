@@ -1,4 +1,9 @@
-SALTO - Xerox Alto I/II Simulator.
+## W11 = Mingw64-gcc compiled files and dlls for Windows 11 using sdl 1.2 compat
+
+## osx = Homebrew compiled files under Mac OS Sonoma using sdl 1.2 compat
+
+
+# SALTO - Xerox Alto I/II Simulator.
 Copyright by Juergen Buchmueller <pullmoll@t-online.de>
 Partially based on info found in Eric Smith's Alto simulator: Altogether.
 
