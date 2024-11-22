@@ -1,0 +1,3453 @@
+   0  $accept : file $end
+
+   1  file : line
+   2       | line error
+
+   3  line : line token
+   4       | token
+
+   5  token : EOL
+   6        | symdef EOL
+   7        | symdef imm16list EOL
+   8        | SYM EQU expr EOL
+   9        | symdef JMP ea EOL
+  10        | symdef JMP AT ea EOL
+  11        | symdef JSR ea EOL
+  12        | symdef JSR AT ea EOL
+  13        | symdef ISZ ea EOL
+  14        | symdef ISZ AT ea EOL
+  15        | symdef DSZ ea EOL
+  16        | symdef DSZ AT ea EOL
+  17        | symdef LDA DstAC ea EOL
+  18        | symdef LDA DstAC AT ea EOL
+  19        | symdef STA DstAC ea EOL
+  20        | symdef STA DstAC AT ea EOL
+  21        | symdef COM arith SrcAC DstAC skip EOL
+  22        | symdef NEG arith SrcAC DstAC skip EOL
+  23        | symdef MOV arith SrcAC DstAC skip EOL
+  24        | symdef INC arith SrcAC DstAC skip EOL
+  25        | symdef ADC arith SrcAC DstAC skip EOL
+  26        | symdef SUB arith SrcAC DstAC skip EOL
+  27        | symdef ADD arith SrcAC DstAC skip EOL
+  28        | symdef AND arith SrcAC DstAC skip EOL
+  29        | symdef CYCLE imm4 EOL
+  30        | symdef MUL EOL
+  31        | symdef DIV EOL
+  32        | symdef JSRII disp EOL
+  33        | symdef JSRIS rel8 EOL
+  34        | symdef CONVERT rel8 ac2 EOL
+  35        | symdef CONVERT rel8 COMMA ac2 EOL
+  36        | symdef DIR EOL
+  37        | symdef EIR EOL
+  38        | symdef BRI EOL
+  39        | symdef RCLK EOL
+  40        | symdef SIO EOL
+  41        | symdef BLT EOL
+  42        | symdef BLKS EOL
+  43        | symdef SIT EOL
+  44        | symdef JMPRAM EOL
+  45        | symdef RDRAM EOL
+  46        | symdef WRTRAM EOL
+  47        | symdef DIRS EOL
+  48        | symdef VERS EOL
+  49        | symdef DREAD EOL
+  50        | symdef DWRITE EOL
+  51        | symdef DEXCH EOL
+  52        | symdef DIAGNOSE1 EOL
+  53        | symdef DIAGNOSE2 EOL
+  54        | symdef BITBLT EOL
+  55        | symdef XMLDA EOL
+  56        | symdef XMSTA EOL
+  57        | symdef DB imm8list EOL
+  58        | symdef DB strlist EOL
+  59        | symdef DW imm16list EOL
+  60        | symdef DD imm32list EOL
+  61        | symdef DS imm8 EOL
+  62        | ORG expr EOL
+  63        | symdef ALIGN IMM EOL
+  64        | symdef EVEN EOL
+  65        | symdef END imm16 EOL
+
+  66  symdef :
+  67         | SYM COLON
+
+  68  arith :
+  69        | ARITH
+
+  70  skip :
+  71       | SKP
+  72       | SZC
+  73       | SNC
+  74       | SZR
+  75       | SNR
+  76       | SEZ
+  77       | SBN
+
+  78  ac2 : expr
+  79      | AC LPAREN expr RPAREN
+
+  80  ac23 : expr
+  81       | AC LPAREN expr RPAREN
+
+  82  SrcAC : expr
+  83        | AC LPAREN IMM RPAREN
+
+  84  DstAC : expr
+  85        | AC LPAREN expr RPAREN
+
+  86  ea : expr
+  87     | expr ac23
+  88     | expr COMMA ac23
+
+  89  disp : expr
+
+  90  rel8 : expr
+
+  91  expr : simple
+  92       | expr SHL simple
+  93       | expr SHR simple
+
+  94  simple : term
+  95         | simple PLUS term
+  96         | simple MINUS term
+  97         | simple AMPERSAND term
+
+  98  term : factor
+  99       | PLUS factor
+ 100       | MINUS factor
+ 101       | TILDE factor
+ 102       | term ASTERISK factor
+ 103       | term SLASH factor
+ 104       | term BAR factor
+ 105       | term CARET factor
+
+ 106  factor : IMM
+ 107         | SYM
+ 108         | LPAREN expr RPAREN
+
+ 109  imm4 : expr
+
+ 110  imm8 : expr
+
+ 111  imm8list : imm8list COMMA imm8
+ 112           | imm8
+
+ 113  imm16 : expr
+
+ 114  imm16list : imm16list COMMA imm16
+ 115            | imm16
+
+ 116  imm32 : expr
+
+ 117  imm32list : imm32list COMMA imm32
+ 118            | imm32
+
+ 119  str : CHR
+ 120      | imm8
+
+ 121  strlist : strlist COMMA str
+ 122          | str
+
+0: shift/reduce conflict (shift 1, reduce 66) on EOL
+0: shift/reduce conflict (shift 2, reduce 66) on SYM
+state 0
+	$accept : . file $end  (0)
+	symdef : .  (66)
+
+	EOL  shift 1
+	SYM  shift 2
+	ORG  shift 3
+	LPAREN  reduce 66
+	PLUS  reduce 66
+	MINUS  reduce 66
+	TILDE  reduce 66
+	IMM  reduce 66
+	JMP  reduce 66
+	JSR  reduce 66
+	DSZ  reduce 66
+	ISZ  reduce 66
+	LDA  reduce 66
+	STA  reduce 66
+	COM  reduce 66
+	NEG  reduce 66
+	MOV  reduce 66
+	INC  reduce 66
+	ADC  reduce 66
+	SUB  reduce 66
+	ADD  reduce 66
+	AND  reduce 66
+	CYCLE  reduce 66
+	MUL  reduce 66
+	DIV  reduce 66
+	JSRII  reduce 66
+	JSRIS  reduce 66
+	CONVERT  reduce 66
+	DIR  reduce 66
+	EIR  reduce 66
+	BRI  reduce 66
+	RCLK  reduce 66
+	SIO  reduce 66
+	BLT  reduce 66
+	BLKS  reduce 66
+	SIT  reduce 66
+	JMPRAM  reduce 66
+	RDRAM  reduce 66
+	WRTRAM  reduce 66
+	DIRS  reduce 66
+	VERS  reduce 66
+	DREAD  reduce 66
+	DWRITE  reduce 66
+	DEXCH  reduce 66
+	DIAGNOSE1  reduce 66
+	DIAGNOSE2  reduce 66
+	BITBLT  reduce 66
+	XMLDA  reduce 66
+	XMSTA  reduce 66
+	DB  reduce 66
+	DW  reduce 66
+	DD  reduce 66
+	DS  reduce 66
+	ALIGN  reduce 66
+	END  reduce 66
+	EVEN  reduce 66
+
+	file  goto 4
+	line  goto 5
+	token  goto 6
+	symdef  goto 7
+
+
+state 1
+	token : EOL .  (5)
+
+	.  reduce 5
+
+
+state 2
+	token : SYM . EQU expr EOL  (8)
+	symdef : SYM . COLON  (67)
+
+	COLON  shift 8
+	EQU  shift 9
+	.  error
+
+
+state 3
+	token : ORG . expr EOL  (62)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 16
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 4
+	$accept : file . $end  (0)
+
+	$end  accept
+
+
+5: shift/reduce conflict (shift 1, reduce 66) on EOL
+5: shift/reduce conflict (shift 2, reduce 66) on SYM
+state 5
+	file : line .  (1)
+	file : line . error  (2)
+	line : line . token  (3)
+	symdef : .  (66)
+
+	error  shift 20
+	EOL  shift 1
+	SYM  shift 2
+	ORG  shift 3
+	$end  reduce 1
+	LPAREN  reduce 66
+	PLUS  reduce 66
+	MINUS  reduce 66
+	TILDE  reduce 66
+	IMM  reduce 66
+	JMP  reduce 66
+	JSR  reduce 66
+	DSZ  reduce 66
+	ISZ  reduce 66
+	LDA  reduce 66
+	STA  reduce 66
+	COM  reduce 66
+	NEG  reduce 66
+	MOV  reduce 66
+	INC  reduce 66
+	ADC  reduce 66
+	SUB  reduce 66
+	ADD  reduce 66
+	AND  reduce 66
+	CYCLE  reduce 66
+	MUL  reduce 66
+	DIV  reduce 66
+	JSRII  reduce 66
+	JSRIS  reduce 66
+	CONVERT  reduce 66
+	DIR  reduce 66
+	EIR  reduce 66
+	BRI  reduce 66
+	RCLK  reduce 66
+	SIO  reduce 66
+	BLT  reduce 66
+	BLKS  reduce 66
+	SIT  reduce 66
+	JMPRAM  reduce 66
+	RDRAM  reduce 66
+	WRTRAM  reduce 66
+	DIRS  reduce 66
+	VERS  reduce 66
+	DREAD  reduce 66
+	DWRITE  reduce 66
+	DEXCH  reduce 66
+	DIAGNOSE1  reduce 66
+	DIAGNOSE2  reduce 66
+	BITBLT  reduce 66
+	XMLDA  reduce 66
+	XMSTA  reduce 66
+	DB  reduce 66
+	DW  reduce 66
+	DD  reduce 66
+	DS  reduce 66
+	ALIGN  reduce 66
+	END  reduce 66
+	EVEN  reduce 66
+
+	token  goto 21
+	symdef  goto 7
+
+
+state 6
+	line : token .  (4)
+
+	.  reduce 4
+
+
+state 7
+	token : symdef . EOL  (6)
+	token : symdef . imm16list EOL  (7)
+	token : symdef . JMP ea EOL  (9)
+	token : symdef . JMP AT ea EOL  (10)
+	token : symdef . JSR ea EOL  (11)
+	token : symdef . JSR AT ea EOL  (12)
+	token : symdef . ISZ ea EOL  (13)
+	token : symdef . ISZ AT ea EOL  (14)
+	token : symdef . DSZ ea EOL  (15)
+	token : symdef . DSZ AT ea EOL  (16)
+	token : symdef . LDA DstAC ea EOL  (17)
+	token : symdef . LDA DstAC AT ea EOL  (18)
+	token : symdef . STA DstAC ea EOL  (19)
+	token : symdef . STA DstAC AT ea EOL  (20)
+	token : symdef . COM arith SrcAC DstAC skip EOL  (21)
+	token : symdef . NEG arith SrcAC DstAC skip EOL  (22)
+	token : symdef . MOV arith SrcAC DstAC skip EOL  (23)
+	token : symdef . INC arith SrcAC DstAC skip EOL  (24)
+	token : symdef . ADC arith SrcAC DstAC skip EOL  (25)
+	token : symdef . SUB arith SrcAC DstAC skip EOL  (26)
+	token : symdef . ADD arith SrcAC DstAC skip EOL  (27)
+	token : symdef . AND arith SrcAC DstAC skip EOL  (28)
+	token : symdef . CYCLE imm4 EOL  (29)
+	token : symdef . MUL EOL  (30)
+	token : symdef . DIV EOL  (31)
+	token : symdef . JSRII disp EOL  (32)
+	token : symdef . JSRIS rel8 EOL  (33)
+	token : symdef . CONVERT rel8 ac2 EOL  (34)
+	token : symdef . CONVERT rel8 COMMA ac2 EOL  (35)
+	token : symdef . DIR EOL  (36)
+	token : symdef . EIR EOL  (37)
+	token : symdef . BRI EOL  (38)
+	token : symdef . RCLK EOL  (39)
+	token : symdef . SIO EOL  (40)
+	token : symdef . BLT EOL  (41)
+	token : symdef . BLKS EOL  (42)
+	token : symdef . SIT EOL  (43)
+	token : symdef . JMPRAM EOL  (44)
+	token : symdef . RDRAM EOL  (45)
+	token : symdef . WRTRAM EOL  (46)
+	token : symdef . DIRS EOL  (47)
+	token : symdef . VERS EOL  (48)
+	token : symdef . DREAD EOL  (49)
+	token : symdef . DWRITE EOL  (50)
+	token : symdef . DEXCH EOL  (51)
+	token : symdef . DIAGNOSE1 EOL  (52)
+	token : symdef . DIAGNOSE2 EOL  (53)
+	token : symdef . BITBLT EOL  (54)
+	token : symdef . XMLDA EOL  (55)
+	token : symdef . XMSTA EOL  (56)
+	token : symdef . DB imm8list EOL  (57)
+	token : symdef . DB strlist EOL  (58)
+	token : symdef . DW imm16list EOL  (59)
+	token : symdef . DD imm32list EOL  (60)
+	token : symdef . DS imm8 EOL  (61)
+	token : symdef . ALIGN IMM EOL  (63)
+	token : symdef . EVEN EOL  (64)
+	token : symdef . END imm16 EOL  (65)
+
+	EOL  shift 22
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	JMP  shift 23
+	JSR  shift 24
+	DSZ  shift 25
+	ISZ  shift 26
+	LDA  shift 27
+	STA  shift 28
+	COM  shift 29
+	NEG  shift 30
+	MOV  shift 31
+	INC  shift 32
+	ADC  shift 33
+	SUB  shift 34
+	ADD  shift 35
+	AND  shift 36
+	CYCLE  shift 37
+	MUL  shift 38
+	DIV  shift 39
+	JSRII  shift 40
+	JSRIS  shift 41
+	CONVERT  shift 42
+	DIR  shift 43
+	EIR  shift 44
+	BRI  shift 45
+	RCLK  shift 46
+	SIO  shift 47
+	BLT  shift 48
+	BLKS  shift 49
+	SIT  shift 50
+	JMPRAM  shift 51
+	RDRAM  shift 52
+	WRTRAM  shift 53
+	DIRS  shift 54
+	VERS  shift 55
+	DREAD  shift 56
+	DWRITE  shift 57
+	DEXCH  shift 58
+	DIAGNOSE1  shift 59
+	DIAGNOSE2  shift 60
+	BITBLT  shift 61
+	XMLDA  shift 62
+	XMSTA  shift 63
+	DB  shift 64
+	DW  shift 65
+	DD  shift 66
+	DS  shift 67
+	ALIGN  shift 68
+	END  shift 69
+	EVEN  shift 70
+	.  error
+
+	expr  goto 71
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm16list  goto 72
+	imm16  goto 73
+
+
+state 8
+	symdef : SYM COLON .  (67)
+
+	.  reduce 67
+
+
+state 9
+	token : SYM EQU . expr EOL  (8)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 74
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 10
+	factor : LPAREN . expr RPAREN  (108)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 75
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 11
+	term : PLUS . factor  (99)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 76
+
+
+state 12
+	term : MINUS . factor  (100)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 77
+
+
+state 13
+	term : TILDE . factor  (101)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 78
+
+
+state 14
+	factor : IMM .  (106)
+
+	.  reduce 106
+
+
+state 15
+	factor : SYM .  (107)
+
+	.  reduce 107
+
+
+state 16
+	token : ORG expr . EOL  (62)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	EOL  shift 79
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+17: shift/reduce conflict (shift 82, reduce 91) on PLUS
+17: shift/reduce conflict (shift 83, reduce 91) on MINUS
+state 17
+	expr : simple .  (91)
+	simple : simple . PLUS term  (95)
+	simple : simple . MINUS term  (96)
+	simple : simple . AMPERSAND term  (97)
+
+	PLUS  shift 82
+	MINUS  shift 83
+	AMPERSAND  shift 84
+	EOL  reduce 91
+	COMMA  reduce 91
+	LPAREN  reduce 91
+	RPAREN  reduce 91
+	SHL  reduce 91
+	SHR  reduce 91
+	TILDE  reduce 91
+	AT  reduce 91
+	IMM  reduce 91
+	SYM  reduce 91
+	AC  reduce 91
+	SKP  reduce 91
+	SZC  reduce 91
+	SNC  reduce 91
+	SZR  reduce 91
+	SNR  reduce 91
+	SEZ  reduce 91
+	SBN  reduce 91
+
+
+state 18
+	simple : term .  (94)
+	term : term . ASTERISK factor  (102)
+	term : term . SLASH factor  (103)
+	term : term . BAR factor  (104)
+	term : term . CARET factor  (105)
+
+	ASTERISK  shift 85
+	SLASH  shift 86
+	BAR  shift 87
+	CARET  shift 88
+	EOL  reduce 94
+	COMMA  reduce 94
+	LPAREN  reduce 94
+	RPAREN  reduce 94
+	PLUS  reduce 94
+	MINUS  reduce 94
+	SHL  reduce 94
+	SHR  reduce 94
+	AMPERSAND  reduce 94
+	TILDE  reduce 94
+	AT  reduce 94
+	IMM  reduce 94
+	SYM  reduce 94
+	AC  reduce 94
+	SKP  reduce 94
+	SZC  reduce 94
+	SNC  reduce 94
+	SZR  reduce 94
+	SNR  reduce 94
+	SEZ  reduce 94
+	SBN  reduce 94
+
+
+state 19
+	term : factor .  (98)
+
+	.  reduce 98
+
+
+state 20
+	file : line error .  (2)
+
+	.  reduce 2
+
+
+state 21
+	line : line token .  (3)
+
+	.  reduce 3
+
+
+state 22
+	token : symdef EOL .  (6)
+
+	.  reduce 6
+
+
+state 23
+	token : symdef JMP . ea EOL  (9)
+	token : symdef JMP . AT ea EOL  (10)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 89
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 91
+
+
+state 24
+	token : symdef JSR . ea EOL  (11)
+	token : symdef JSR . AT ea EOL  (12)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 92
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 93
+
+
+state 25
+	token : symdef DSZ . ea EOL  (15)
+	token : symdef DSZ . AT ea EOL  (16)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 94
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 95
+
+
+state 26
+	token : symdef ISZ . ea EOL  (13)
+	token : symdef ISZ . AT ea EOL  (14)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 96
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 97
+
+
+state 27
+	token : symdef LDA . DstAC ea EOL  (17)
+	token : symdef LDA . DstAC AT ea EOL  (18)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 100
+
+
+state 28
+	token : symdef STA . DstAC ea EOL  (19)
+	token : symdef STA . DstAC AT ea EOL  (20)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 101
+
+
+state 29
+	token : symdef COM . arith SrcAC DstAC skip EOL  (21)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 103
+
+
+state 30
+	token : symdef NEG . arith SrcAC DstAC skip EOL  (22)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 104
+
+
+state 31
+	token : symdef MOV . arith SrcAC DstAC skip EOL  (23)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 105
+
+
+state 32
+	token : symdef INC . arith SrcAC DstAC skip EOL  (24)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 106
+
+
+state 33
+	token : symdef ADC . arith SrcAC DstAC skip EOL  (25)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 107
+
+
+state 34
+	token : symdef SUB . arith SrcAC DstAC skip EOL  (26)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 108
+
+
+state 35
+	token : symdef ADD . arith SrcAC DstAC skip EOL  (27)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 109
+
+
+state 36
+	token : symdef AND . arith SrcAC DstAC skip EOL  (28)
+	arith : .  (68)
+
+	ARITH  shift 102
+	LPAREN  reduce 68
+	PLUS  reduce 68
+	MINUS  reduce 68
+	TILDE  reduce 68
+	IMM  reduce 68
+	SYM  reduce 68
+	AC  reduce 68
+
+	arith  goto 110
+
+
+state 37
+	token : symdef CYCLE . imm4 EOL  (29)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 111
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm4  goto 112
+
+
+state 38
+	token : symdef MUL . EOL  (30)
+
+	EOL  shift 113
+	.  error
+
+
+state 39
+	token : symdef DIV . EOL  (31)
+
+	EOL  shift 114
+	.  error
+
+
+state 40
+	token : symdef JSRII . disp EOL  (32)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 115
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	disp  goto 116
+
+
+state 41
+	token : symdef JSRIS . rel8 EOL  (33)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 117
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	rel8  goto 118
+
+
+state 42
+	token : symdef CONVERT . rel8 ac2 EOL  (34)
+	token : symdef CONVERT . rel8 COMMA ac2 EOL  (35)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 117
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	rel8  goto 119
+
+
+state 43
+	token : symdef DIR . EOL  (36)
+
+	EOL  shift 120
+	.  error
+
+
+state 44
+	token : symdef EIR . EOL  (37)
+
+	EOL  shift 121
+	.  error
+
+
+state 45
+	token : symdef BRI . EOL  (38)
+
+	EOL  shift 122
+	.  error
+
+
+state 46
+	token : symdef RCLK . EOL  (39)
+
+	EOL  shift 123
+	.  error
+
+
+state 47
+	token : symdef SIO . EOL  (40)
+
+	EOL  shift 124
+	.  error
+
+
+state 48
+	token : symdef BLT . EOL  (41)
+
+	EOL  shift 125
+	.  error
+
+
+state 49
+	token : symdef BLKS . EOL  (42)
+
+	EOL  shift 126
+	.  error
+
+
+state 50
+	token : symdef SIT . EOL  (43)
+
+	EOL  shift 127
+	.  error
+
+
+state 51
+	token : symdef JMPRAM . EOL  (44)
+
+	EOL  shift 128
+	.  error
+
+
+state 52
+	token : symdef RDRAM . EOL  (45)
+
+	EOL  shift 129
+	.  error
+
+
+state 53
+	token : symdef WRTRAM . EOL  (46)
+
+	EOL  shift 130
+	.  error
+
+
+state 54
+	token : symdef DIRS . EOL  (47)
+
+	EOL  shift 131
+	.  error
+
+
+state 55
+	token : symdef VERS . EOL  (48)
+
+	EOL  shift 132
+	.  error
+
+
+state 56
+	token : symdef DREAD . EOL  (49)
+
+	EOL  shift 133
+	.  error
+
+
+state 57
+	token : symdef DWRITE . EOL  (50)
+
+	EOL  shift 134
+	.  error
+
+
+state 58
+	token : symdef DEXCH . EOL  (51)
+
+	EOL  shift 135
+	.  error
+
+
+state 59
+	token : symdef DIAGNOSE1 . EOL  (52)
+
+	EOL  shift 136
+	.  error
+
+
+state 60
+	token : symdef DIAGNOSE2 . EOL  (53)
+
+	EOL  shift 137
+	.  error
+
+
+state 61
+	token : symdef BITBLT . EOL  (54)
+
+	EOL  shift 138
+	.  error
+
+
+state 62
+	token : symdef XMLDA . EOL  (55)
+
+	EOL  shift 139
+	.  error
+
+
+state 63
+	token : symdef XMSTA . EOL  (56)
+
+	EOL  shift 140
+	.  error
+
+
+state 64
+	token : symdef DB . imm8list EOL  (57)
+	token : symdef DB . strlist EOL  (58)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	CHR  shift 141
+	.  error
+
+	expr  goto 142
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm8list  goto 143
+	strlist  goto 144
+	imm8  goto 145
+	str  goto 146
+
+
+state 65
+	token : symdef DW . imm16list EOL  (59)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 71
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm16list  goto 147
+	imm16  goto 73
+
+
+state 66
+	token : symdef DD . imm32list EOL  (60)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 148
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm32list  goto 149
+	imm32  goto 150
+
+
+state 67
+	token : symdef DS . imm8 EOL  (61)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 142
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm8  goto 151
+
+
+state 68
+	token : symdef ALIGN . IMM EOL  (63)
+
+	IMM  shift 152
+	.  error
+
+
+state 69
+	token : symdef END . imm16 EOL  (65)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 71
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm16  goto 153
+
+
+state 70
+	token : symdef EVEN . EOL  (64)
+
+	EOL  shift 154
+	.  error
+
+
+state 71
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+	imm16 : expr .  (113)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 113
+	COMMA  reduce 113
+
+
+state 72
+	token : symdef imm16list . EOL  (7)
+	imm16list : imm16list . COMMA imm16  (114)
+
+	EOL  shift 155
+	COMMA  shift 156
+	.  error
+
+
+state 73
+	imm16list : imm16 .  (115)
+
+	.  reduce 115
+
+
+state 74
+	token : SYM EQU expr . EOL  (8)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	EOL  shift 157
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+state 75
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+	factor : LPAREN expr . RPAREN  (108)
+
+	RPAREN  shift 158
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+state 76
+	term : PLUS factor .  (99)
+
+	.  reduce 99
+
+
+state 77
+	term : MINUS factor .  (100)
+
+	.  reduce 100
+
+
+state 78
+	term : TILDE factor .  (101)
+
+	.  reduce 101
+
+
+state 79
+	token : ORG expr EOL .  (62)
+
+	.  reduce 62
+
+
+state 80
+	expr : expr SHL . simple  (92)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	simple  goto 159
+	term  goto 18
+	factor  goto 19
+
+
+state 81
+	expr : expr SHR . simple  (93)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	simple  goto 160
+	term  goto 18
+	factor  goto 19
+
+
+state 82
+	simple : simple PLUS . term  (95)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	term  goto 161
+	factor  goto 19
+
+
+state 83
+	simple : simple MINUS . term  (96)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	term  goto 162
+	factor  goto 19
+
+
+state 84
+	simple : simple AMPERSAND . term  (97)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	term  goto 163
+	factor  goto 19
+
+
+state 85
+	term : term ASTERISK . factor  (102)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 164
+
+
+state 86
+	term : term SLASH . factor  (103)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 165
+
+
+state 87
+	term : term BAR . factor  (104)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 166
+
+
+state 88
+	term : term CARET . factor  (105)
+
+	LPAREN  shift 10
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	factor  goto 167
+
+
+state 89
+	token : symdef JMP AT . ea EOL  (10)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 168
+
+
+state 90
+	ea : expr .  (86)
+	ea : expr . ac23  (87)
+	ea : expr . COMMA ac23  (88)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	COMMA  shift 169
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	SHL  shift 80
+	SHR  shift 81
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 170
+	EOL  reduce 86
+
+	expr  goto 171
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ac23  goto 172
+
+
+state 91
+	token : symdef JMP ea . EOL  (9)
+
+	EOL  shift 173
+	.  error
+
+
+state 92
+	token : symdef JSR AT . ea EOL  (12)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 174
+
+
+state 93
+	token : symdef JSR ea . EOL  (11)
+
+	EOL  shift 175
+	.  error
+
+
+state 94
+	token : symdef DSZ AT . ea EOL  (16)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 176
+
+
+state 95
+	token : symdef DSZ ea . EOL  (15)
+
+	EOL  shift 177
+	.  error
+
+
+state 96
+	token : symdef ISZ AT . ea EOL  (14)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 178
+
+
+state 97
+	token : symdef ISZ ea . EOL  (13)
+
+	EOL  shift 179
+	.  error
+
+
+state 98
+	DstAC : AC . LPAREN expr RPAREN  (85)
+
+	LPAREN  shift 180
+	.  error
+
+
+state 99
+	DstAC : expr .  (84)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 84
+	LPAREN  reduce 84
+	PLUS  reduce 84
+	MINUS  reduce 84
+	TILDE  reduce 84
+	AT  reduce 84
+	IMM  reduce 84
+	SYM  reduce 84
+	SKP  reduce 84
+	SZC  reduce 84
+	SNC  reduce 84
+	SZR  reduce 84
+	SNR  reduce 84
+	SEZ  reduce 84
+	SBN  reduce 84
+
+
+state 100
+	token : symdef LDA DstAC . ea EOL  (17)
+	token : symdef LDA DstAC . AT ea EOL  (18)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 181
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 182
+
+
+state 101
+	token : symdef STA DstAC . ea EOL  (19)
+	token : symdef STA DstAC . AT ea EOL  (20)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	AT  shift 183
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 184
+
+
+state 102
+	arith : ARITH .  (69)
+
+	.  reduce 69
+
+
+state 103
+	token : symdef COM arith . SrcAC DstAC skip EOL  (21)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 187
+
+
+state 104
+	token : symdef NEG arith . SrcAC DstAC skip EOL  (22)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 188
+
+
+state 105
+	token : symdef MOV arith . SrcAC DstAC skip EOL  (23)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 189
+
+
+state 106
+	token : symdef INC arith . SrcAC DstAC skip EOL  (24)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 190
+
+
+state 107
+	token : symdef ADC arith . SrcAC DstAC skip EOL  (25)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 191
+
+
+state 108
+	token : symdef SUB arith . SrcAC DstAC skip EOL  (26)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 192
+
+
+state 109
+	token : symdef ADD arith . SrcAC DstAC skip EOL  (27)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 193
+
+
+state 110
+	token : symdef AND arith . SrcAC DstAC skip EOL  (28)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 185
+	.  error
+
+	expr  goto 186
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	SrcAC  goto 194
+
+
+state 111
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+	imm4 : expr .  (109)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 109
+
+
+state 112
+	token : symdef CYCLE imm4 . EOL  (29)
+
+	EOL  shift 195
+	.  error
+
+
+state 113
+	token : symdef MUL EOL .  (30)
+
+	.  reduce 30
+
+
+state 114
+	token : symdef DIV EOL .  (31)
+
+	.  reduce 31
+
+
+state 115
+	disp : expr .  (89)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 89
+
+
+state 116
+	token : symdef JSRII disp . EOL  (32)
+
+	EOL  shift 196
+	.  error
+
+
+state 117
+	rel8 : expr .  (90)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 90
+	COMMA  reduce 90
+	LPAREN  reduce 90
+	PLUS  reduce 90
+	MINUS  reduce 90
+	TILDE  reduce 90
+	IMM  reduce 90
+	SYM  reduce 90
+	AC  reduce 90
+
+
+state 118
+	token : symdef JSRIS rel8 . EOL  (33)
+
+	EOL  shift 197
+	.  error
+
+
+state 119
+	token : symdef CONVERT rel8 . ac2 EOL  (34)
+	token : symdef CONVERT rel8 . COMMA ac2 EOL  (35)
+
+	COMMA  shift 198
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 199
+	.  error
+
+	expr  goto 200
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ac2  goto 201
+
+
+state 120
+	token : symdef DIR EOL .  (36)
+
+	.  reduce 36
+
+
+state 121
+	token : symdef EIR EOL .  (37)
+
+	.  reduce 37
+
+
+state 122
+	token : symdef BRI EOL .  (38)
+
+	.  reduce 38
+
+
+state 123
+	token : symdef RCLK EOL .  (39)
+
+	.  reduce 39
+
+
+state 124
+	token : symdef SIO EOL .  (40)
+
+	.  reduce 40
+
+
+state 125
+	token : symdef BLT EOL .  (41)
+
+	.  reduce 41
+
+
+state 126
+	token : symdef BLKS EOL .  (42)
+
+	.  reduce 42
+
+
+state 127
+	token : symdef SIT EOL .  (43)
+
+	.  reduce 43
+
+
+state 128
+	token : symdef JMPRAM EOL .  (44)
+
+	.  reduce 44
+
+
+state 129
+	token : symdef RDRAM EOL .  (45)
+
+	.  reduce 45
+
+
+state 130
+	token : symdef WRTRAM EOL .  (46)
+
+	.  reduce 46
+
+
+state 131
+	token : symdef DIRS EOL .  (47)
+
+	.  reduce 47
+
+
+state 132
+	token : symdef VERS EOL .  (48)
+
+	.  reduce 48
+
+
+state 133
+	token : symdef DREAD EOL .  (49)
+
+	.  reduce 49
+
+
+state 134
+	token : symdef DWRITE EOL .  (50)
+
+	.  reduce 50
+
+
+state 135
+	token : symdef DEXCH EOL .  (51)
+
+	.  reduce 51
+
+
+state 136
+	token : symdef DIAGNOSE1 EOL .  (52)
+
+	.  reduce 52
+
+
+state 137
+	token : symdef DIAGNOSE2 EOL .  (53)
+
+	.  reduce 53
+
+
+state 138
+	token : symdef BITBLT EOL .  (54)
+
+	.  reduce 54
+
+
+state 139
+	token : symdef XMLDA EOL .  (55)
+
+	.  reduce 55
+
+
+state 140
+	token : symdef XMSTA EOL .  (56)
+
+	.  reduce 56
+
+
+state 141
+	str : CHR .  (119)
+
+	.  reduce 119
+
+
+state 142
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+	imm8 : expr .  (110)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 110
+	COMMA  reduce 110
+
+
+state 143
+	token : symdef DB imm8list . EOL  (57)
+	imm8list : imm8list . COMMA imm8  (111)
+
+	EOL  shift 202
+	COMMA  shift 203
+	.  error
+
+
+state 144
+	token : symdef DB strlist . EOL  (58)
+	strlist : strlist . COMMA str  (121)
+
+	EOL  shift 204
+	COMMA  shift 205
+	.  error
+
+
+145: reduce/reduce conflict (reduce 112, reduce 120) on EOL
+145: reduce/reduce conflict (reduce 112, reduce 120) on COMMA
+state 145
+	imm8list : imm8 .  (112)
+	str : imm8 .  (120)
+
+	.  reduce 112
+
+
+state 146
+	strlist : str .  (122)
+
+	.  reduce 122
+
+
+state 147
+	token : symdef DW imm16list . EOL  (59)
+	imm16list : imm16list . COMMA imm16  (114)
+
+	EOL  shift 206
+	COMMA  shift 156
+	.  error
+
+
+state 148
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+	imm32 : expr .  (116)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 116
+	COMMA  reduce 116
+
+
+state 149
+	token : symdef DD imm32list . EOL  (60)
+	imm32list : imm32list . COMMA imm32  (117)
+
+	EOL  shift 207
+	COMMA  shift 208
+	.  error
+
+
+state 150
+	imm32list : imm32 .  (118)
+
+	.  reduce 118
+
+
+state 151
+	token : symdef DS imm8 . EOL  (61)
+
+	EOL  shift 209
+	.  error
+
+
+state 152
+	token : symdef ALIGN IMM . EOL  (63)
+
+	EOL  shift 210
+	.  error
+
+
+state 153
+	token : symdef END imm16 . EOL  (65)
+
+	EOL  shift 211
+	.  error
+
+
+state 154
+	token : symdef EVEN EOL .  (64)
+
+	.  reduce 64
+
+
+state 155
+	token : symdef imm16list EOL .  (7)
+
+	.  reduce 7
+
+
+state 156
+	imm16list : imm16list COMMA . imm16  (114)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 71
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm16  goto 212
+
+
+state 157
+	token : SYM EQU expr EOL .  (8)
+
+	.  reduce 8
+
+
+state 158
+	factor : LPAREN expr RPAREN .  (108)
+
+	.  reduce 108
+
+
+159: shift/reduce conflict (shift 82, reduce 92) on PLUS
+159: shift/reduce conflict (shift 83, reduce 92) on MINUS
+state 159
+	expr : expr SHL simple .  (92)
+	simple : simple . PLUS term  (95)
+	simple : simple . MINUS term  (96)
+	simple : simple . AMPERSAND term  (97)
+
+	PLUS  shift 82
+	MINUS  shift 83
+	AMPERSAND  shift 84
+	EOL  reduce 92
+	COMMA  reduce 92
+	LPAREN  reduce 92
+	RPAREN  reduce 92
+	SHL  reduce 92
+	SHR  reduce 92
+	TILDE  reduce 92
+	AT  reduce 92
+	IMM  reduce 92
+	SYM  reduce 92
+	AC  reduce 92
+	SKP  reduce 92
+	SZC  reduce 92
+	SNC  reduce 92
+	SZR  reduce 92
+	SNR  reduce 92
+	SEZ  reduce 92
+	SBN  reduce 92
+
+
+160: shift/reduce conflict (shift 82, reduce 93) on PLUS
+160: shift/reduce conflict (shift 83, reduce 93) on MINUS
+state 160
+	expr : expr SHR simple .  (93)
+	simple : simple . PLUS term  (95)
+	simple : simple . MINUS term  (96)
+	simple : simple . AMPERSAND term  (97)
+
+	PLUS  shift 82
+	MINUS  shift 83
+	AMPERSAND  shift 84
+	EOL  reduce 93
+	COMMA  reduce 93
+	LPAREN  reduce 93
+	RPAREN  reduce 93
+	SHL  reduce 93
+	SHR  reduce 93
+	TILDE  reduce 93
+	AT  reduce 93
+	IMM  reduce 93
+	SYM  reduce 93
+	AC  reduce 93
+	SKP  reduce 93
+	SZC  reduce 93
+	SNC  reduce 93
+	SZR  reduce 93
+	SNR  reduce 93
+	SEZ  reduce 93
+	SBN  reduce 93
+
+
+state 161
+	simple : simple PLUS term .  (95)
+	term : term . ASTERISK factor  (102)
+	term : term . SLASH factor  (103)
+	term : term . BAR factor  (104)
+	term : term . CARET factor  (105)
+
+	ASTERISK  shift 85
+	SLASH  shift 86
+	BAR  shift 87
+	CARET  shift 88
+	EOL  reduce 95
+	COMMA  reduce 95
+	LPAREN  reduce 95
+	RPAREN  reduce 95
+	PLUS  reduce 95
+	MINUS  reduce 95
+	SHL  reduce 95
+	SHR  reduce 95
+	AMPERSAND  reduce 95
+	TILDE  reduce 95
+	AT  reduce 95
+	IMM  reduce 95
+	SYM  reduce 95
+	AC  reduce 95
+	SKP  reduce 95
+	SZC  reduce 95
+	SNC  reduce 95
+	SZR  reduce 95
+	SNR  reduce 95
+	SEZ  reduce 95
+	SBN  reduce 95
+
+
+state 162
+	simple : simple MINUS term .  (96)
+	term : term . ASTERISK factor  (102)
+	term : term . SLASH factor  (103)
+	term : term . BAR factor  (104)
+	term : term . CARET factor  (105)
+
+	ASTERISK  shift 85
+	SLASH  shift 86
+	BAR  shift 87
+	CARET  shift 88
+	EOL  reduce 96
+	COMMA  reduce 96
+	LPAREN  reduce 96
+	RPAREN  reduce 96
+	PLUS  reduce 96
+	MINUS  reduce 96
+	SHL  reduce 96
+	SHR  reduce 96
+	AMPERSAND  reduce 96
+	TILDE  reduce 96
+	AT  reduce 96
+	IMM  reduce 96
+	SYM  reduce 96
+	AC  reduce 96
+	SKP  reduce 96
+	SZC  reduce 96
+	SNC  reduce 96
+	SZR  reduce 96
+	SNR  reduce 96
+	SEZ  reduce 96
+	SBN  reduce 96
+
+
+state 163
+	simple : simple AMPERSAND term .  (97)
+	term : term . ASTERISK factor  (102)
+	term : term . SLASH factor  (103)
+	term : term . BAR factor  (104)
+	term : term . CARET factor  (105)
+
+	ASTERISK  shift 85
+	SLASH  shift 86
+	BAR  shift 87
+	CARET  shift 88
+	EOL  reduce 97
+	COMMA  reduce 97
+	LPAREN  reduce 97
+	RPAREN  reduce 97
+	PLUS  reduce 97
+	MINUS  reduce 97
+	SHL  reduce 97
+	SHR  reduce 97
+	AMPERSAND  reduce 97
+	TILDE  reduce 97
+	AT  reduce 97
+	IMM  reduce 97
+	SYM  reduce 97
+	AC  reduce 97
+	SKP  reduce 97
+	SZC  reduce 97
+	SNC  reduce 97
+	SZR  reduce 97
+	SNR  reduce 97
+	SEZ  reduce 97
+	SBN  reduce 97
+
+
+state 164
+	term : term ASTERISK factor .  (102)
+
+	.  reduce 102
+
+
+state 165
+	term : term SLASH factor .  (103)
+
+	.  reduce 103
+
+
+state 166
+	term : term BAR factor .  (104)
+
+	.  reduce 104
+
+
+state 167
+	term : term CARET factor .  (105)
+
+	.  reduce 105
+
+
+state 168
+	token : symdef JMP AT ea . EOL  (10)
+
+	EOL  shift 213
+	.  error
+
+
+state 169
+	ea : expr COMMA . ac23  (88)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 170
+	.  error
+
+	expr  goto 171
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ac23  goto 214
+
+
+state 170
+	ac23 : AC . LPAREN expr RPAREN  (81)
+
+	LPAREN  shift 215
+	.  error
+
+
+state 171
+	ac23 : expr .  (80)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 80
+
+
+state 172
+	ea : expr ac23 .  (87)
+
+	.  reduce 87
+
+
+state 173
+	token : symdef JMP ea EOL .  (9)
+
+	.  reduce 9
+
+
+state 174
+	token : symdef JSR AT ea . EOL  (12)
+
+	EOL  shift 216
+	.  error
+
+
+state 175
+	token : symdef JSR ea EOL .  (11)
+
+	.  reduce 11
+
+
+state 176
+	token : symdef DSZ AT ea . EOL  (16)
+
+	EOL  shift 217
+	.  error
+
+
+state 177
+	token : symdef DSZ ea EOL .  (15)
+
+	.  reduce 15
+
+
+state 178
+	token : symdef ISZ AT ea . EOL  (14)
+
+	EOL  shift 218
+	.  error
+
+
+state 179
+	token : symdef ISZ ea EOL .  (13)
+
+	.  reduce 13
+
+
+state 180
+	DstAC : AC LPAREN . expr RPAREN  (85)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 219
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 181
+	token : symdef LDA DstAC AT . ea EOL  (18)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 220
+
+
+state 182
+	token : symdef LDA DstAC ea . EOL  (17)
+
+	EOL  shift 221
+	.  error
+
+
+state 183
+	token : symdef STA DstAC AT . ea EOL  (20)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 90
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ea  goto 222
+
+
+state 184
+	token : symdef STA DstAC ea . EOL  (19)
+
+	EOL  shift 223
+	.  error
+
+
+state 185
+	SrcAC : AC . LPAREN IMM RPAREN  (83)
+
+	LPAREN  shift 224
+	.  error
+
+
+state 186
+	SrcAC : expr .  (82)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	LPAREN  reduce 82
+	PLUS  reduce 82
+	MINUS  reduce 82
+	TILDE  reduce 82
+	IMM  reduce 82
+	SYM  reduce 82
+	AC  reduce 82
+
+
+state 187
+	token : symdef COM arith SrcAC . DstAC skip EOL  (21)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 225
+
+
+state 188
+	token : symdef NEG arith SrcAC . DstAC skip EOL  (22)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 226
+
+
+state 189
+	token : symdef MOV arith SrcAC . DstAC skip EOL  (23)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 227
+
+
+state 190
+	token : symdef INC arith SrcAC . DstAC skip EOL  (24)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 228
+
+
+state 191
+	token : symdef ADC arith SrcAC . DstAC skip EOL  (25)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 229
+
+
+state 192
+	token : symdef SUB arith SrcAC . DstAC skip EOL  (26)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 230
+
+
+state 193
+	token : symdef ADD arith SrcAC . DstAC skip EOL  (27)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 231
+
+
+state 194
+	token : symdef AND arith SrcAC . DstAC skip EOL  (28)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 98
+	.  error
+
+	expr  goto 99
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	DstAC  goto 232
+
+
+state 195
+	token : symdef CYCLE imm4 EOL .  (29)
+
+	.  reduce 29
+
+
+state 196
+	token : symdef JSRII disp EOL .  (32)
+
+	.  reduce 32
+
+
+state 197
+	token : symdef JSRIS rel8 EOL .  (33)
+
+	.  reduce 33
+
+
+state 198
+	token : symdef CONVERT rel8 COMMA . ac2 EOL  (35)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	AC  shift 199
+	.  error
+
+	expr  goto 200
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	ac2  goto 233
+
+
+state 199
+	ac2 : AC . LPAREN expr RPAREN  (79)
+
+	LPAREN  shift 234
+	.  error
+
+
+state 200
+	ac2 : expr .  (78)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	SHL  shift 80
+	SHR  shift 81
+	EOL  reduce 78
+
+
+state 201
+	token : symdef CONVERT rel8 ac2 . EOL  (34)
+
+	EOL  shift 235
+	.  error
+
+
+state 202
+	token : symdef DB imm8list EOL .  (57)
+
+	.  reduce 57
+
+
+state 203
+	imm8list : imm8list COMMA . imm8  (111)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 142
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm8  goto 236
+
+
+state 204
+	token : symdef DB strlist EOL .  (58)
+
+	.  reduce 58
+
+
+state 205
+	strlist : strlist COMMA . str  (121)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	CHR  shift 141
+	.  error
+
+	expr  goto 142
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm8  goto 237
+	str  goto 238
+
+
+state 206
+	token : symdef DW imm16list EOL .  (59)
+
+	.  reduce 59
+
+
+state 207
+	token : symdef DD imm32list EOL .  (60)
+
+	.  reduce 60
+
+
+state 208
+	imm32list : imm32list COMMA . imm32  (117)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 148
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+	imm32  goto 239
+
+
+state 209
+	token : symdef DS imm8 EOL .  (61)
+
+	.  reduce 61
+
+
+state 210
+	token : symdef ALIGN IMM EOL .  (63)
+
+	.  reduce 63
+
+
+state 211
+	token : symdef END imm16 EOL .  (65)
+
+	.  reduce 65
+
+
+state 212
+	imm16list : imm16list COMMA imm16 .  (114)
+
+	.  reduce 114
+
+
+state 213
+	token : symdef JMP AT ea EOL .  (10)
+
+	.  reduce 10
+
+
+state 214
+	ea : expr COMMA ac23 .  (88)
+
+	.  reduce 88
+
+
+state 215
+	ac23 : AC LPAREN . expr RPAREN  (81)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 240
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 216
+	token : symdef JSR AT ea EOL .  (12)
+
+	.  reduce 12
+
+
+state 217
+	token : symdef DSZ AT ea EOL .  (16)
+
+	.  reduce 16
+
+
+state 218
+	token : symdef ISZ AT ea EOL .  (14)
+
+	.  reduce 14
+
+
+state 219
+	DstAC : AC LPAREN expr . RPAREN  (85)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	RPAREN  shift 241
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+state 220
+	token : symdef LDA DstAC AT ea . EOL  (18)
+
+	EOL  shift 242
+	.  error
+
+
+state 221
+	token : symdef LDA DstAC ea EOL .  (17)
+
+	.  reduce 17
+
+
+state 222
+	token : symdef STA DstAC AT ea . EOL  (20)
+
+	EOL  shift 243
+	.  error
+
+
+state 223
+	token : symdef STA DstAC ea EOL .  (19)
+
+	.  reduce 19
+
+
+state 224
+	SrcAC : AC LPAREN . IMM RPAREN  (83)
+
+	IMM  shift 244
+	.  error
+
+
+state 225
+	token : symdef COM arith SrcAC DstAC . skip EOL  (21)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 252
+
+
+state 226
+	token : symdef NEG arith SrcAC DstAC . skip EOL  (22)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 253
+
+
+state 227
+	token : symdef MOV arith SrcAC DstAC . skip EOL  (23)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 254
+
+
+state 228
+	token : symdef INC arith SrcAC DstAC . skip EOL  (24)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 255
+
+
+state 229
+	token : symdef ADC arith SrcAC DstAC . skip EOL  (25)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 256
+
+
+state 230
+	token : symdef SUB arith SrcAC DstAC . skip EOL  (26)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 257
+
+
+state 231
+	token : symdef ADD arith SrcAC DstAC . skip EOL  (27)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 258
+
+
+state 232
+	token : symdef AND arith SrcAC DstAC . skip EOL  (28)
+	skip : .  (70)
+
+	SKP  shift 245
+	SZC  shift 246
+	SNC  shift 247
+	SZR  shift 248
+	SNR  shift 249
+	SEZ  shift 250
+	SBN  shift 251
+	EOL  reduce 70
+
+	skip  goto 259
+
+
+state 233
+	token : symdef CONVERT rel8 COMMA ac2 . EOL  (35)
+
+	EOL  shift 260
+	.  error
+
+
+state 234
+	ac2 : AC LPAREN . expr RPAREN  (79)
+
+	LPAREN  shift 10
+	PLUS  shift 11
+	MINUS  shift 12
+	TILDE  shift 13
+	IMM  shift 14
+	SYM  shift 15
+	.  error
+
+	expr  goto 261
+	simple  goto 17
+	term  goto 18
+	factor  goto 19
+
+
+state 235
+	token : symdef CONVERT rel8 ac2 EOL .  (34)
+
+	.  reduce 34
+
+
+state 236
+	imm8list : imm8list COMMA imm8 .  (111)
+
+	.  reduce 111
+
+
+state 237
+	str : imm8 .  (120)
+
+	.  reduce 120
+
+
+state 238
+	strlist : strlist COMMA str .  (121)
+
+	.  reduce 121
+
+
+state 239
+	imm32list : imm32list COMMA imm32 .  (117)
+
+	.  reduce 117
+
+
+state 240
+	ac23 : AC LPAREN expr . RPAREN  (81)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	RPAREN  shift 262
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+state 241
+	DstAC : AC LPAREN expr RPAREN .  (85)
+
+	.  reduce 85
+
+
+state 242
+	token : symdef LDA DstAC AT ea EOL .  (18)
+
+	.  reduce 18
+
+
+state 243
+	token : symdef STA DstAC AT ea EOL .  (20)
+
+	.  reduce 20
+
+
+state 244
+	SrcAC : AC LPAREN IMM . RPAREN  (83)
+
+	RPAREN  shift 263
+	.  error
+
+
+state 245
+	skip : SKP .  (71)
+
+	.  reduce 71
+
+
+state 246
+	skip : SZC .  (72)
+
+	.  reduce 72
+
+
+state 247
+	skip : SNC .  (73)
+
+	.  reduce 73
+
+
+state 248
+	skip : SZR .  (74)
+
+	.  reduce 74
+
+
+state 249
+	skip : SNR .  (75)
+
+	.  reduce 75
+
+
+state 250
+	skip : SEZ .  (76)
+
+	.  reduce 76
+
+
+state 251
+	skip : SBN .  (77)
+
+	.  reduce 77
+
+
+state 252
+	token : symdef COM arith SrcAC DstAC skip . EOL  (21)
+
+	EOL  shift 264
+	.  error
+
+
+state 253
+	token : symdef NEG arith SrcAC DstAC skip . EOL  (22)
+
+	EOL  shift 265
+	.  error
+
+
+state 254
+	token : symdef MOV arith SrcAC DstAC skip . EOL  (23)
+
+	EOL  shift 266
+	.  error
+
+
+state 255
+	token : symdef INC arith SrcAC DstAC skip . EOL  (24)
+
+	EOL  shift 267
+	.  error
+
+
+state 256
+	token : symdef ADC arith SrcAC DstAC skip . EOL  (25)
+
+	EOL  shift 268
+	.  error
+
+
+state 257
+	token : symdef SUB arith SrcAC DstAC skip . EOL  (26)
+
+	EOL  shift 269
+	.  error
+
+
+state 258
+	token : symdef ADD arith SrcAC DstAC skip . EOL  (27)
+
+	EOL  shift 270
+	.  error
+
+
+state 259
+	token : symdef AND arith SrcAC DstAC skip . EOL  (28)
+
+	EOL  shift 271
+	.  error
+
+
+state 260
+	token : symdef CONVERT rel8 COMMA ac2 EOL .  (35)
+
+	.  reduce 35
+
+
+state 261
+	ac2 : AC LPAREN expr . RPAREN  (79)
+	expr : expr . SHL simple  (92)
+	expr : expr . SHR simple  (93)
+
+	RPAREN  shift 272
+	SHL  shift 80
+	SHR  shift 81
+	.  error
+
+
+state 262
+	ac23 : AC LPAREN expr RPAREN .  (81)
+
+	.  reduce 81
+
+
+state 263
+	SrcAC : AC LPAREN IMM RPAREN .  (83)
+
+	.  reduce 83
+
+
+state 264
+	token : symdef COM arith SrcAC DstAC skip EOL .  (21)
+
+	.  reduce 21
+
+
+state 265
+	token : symdef NEG arith SrcAC DstAC skip EOL .  (22)
+
+	.  reduce 22
+
+
+state 266
+	token : symdef MOV arith SrcAC DstAC skip EOL .  (23)
+
+	.  reduce 23
+
+
+state 267
+	token : symdef INC arith SrcAC DstAC skip EOL .  (24)
+
+	.  reduce 24
+
+
+state 268
+	token : symdef ADC arith SrcAC DstAC skip EOL .  (25)
+
+	.  reduce 25
+
+
+state 269
+	token : symdef SUB arith SrcAC DstAC skip EOL .  (26)
+
+	.  reduce 26
+
+
+state 270
+	token : symdef ADD arith SrcAC DstAC skip EOL .  (27)
+
+	.  reduce 27
+
+
+state 271
+	token : symdef AND arith SrcAC DstAC skip EOL .  (28)
+
+	.  reduce 28
+
+
+state 272
+	ac2 : AC LPAREN expr RPAREN .  (79)
+
+	.  reduce 79
+
+
+State 0 contains 2 shift/reduce conflicts.
+State 5 contains 2 shift/reduce conflicts.
+State 17 contains 2 shift/reduce conflicts.
+State 145 contains 2 reduce/reduce conflicts.
+State 159 contains 2 shift/reduce conflicts.
+State 160 contains 2 shift/reduce conflicts.
+
+
+83 terminals, 27 nonterminals
+123 grammar rules, 273 states
+
+grammar parser grammar
+symbol# value# symbol
+     0      0  $end
+     1    256  error
+     2    257  EOL
+     3    258  HASH
+     4    259  COMMA
+     5    260  COLON
+     6    261  LPAREN
+     7    262  RPAREN
+     8    263  QUOTE
+     9    264  PLUS
+    10    265  MINUS
+    11    266  ASTERISK
+    12    267  SLASH
+    13    268  SHL
+    14    269  SHR
+    15    270  AMPERSAND
+    16    271  BAR
+    17    272  CARET
+    18    273  TILDE
+    19    274  AT
+    20    275  IMM
+    21    276  REG
+    22    277  SYM
+    23    278  CHR
+    24    279  ARITH
+    25    280  AC
+    26    281  SKP
+    27    282  SZC
+    28    283  SNC
+    29    284  SZR
+    30    285  SNR
+    31    286  SEZ
+    32    287  SBN
+    33    288  JMP
+    34    289  JSR
+    35    290  DSZ
+    36    291  ISZ
+    37    292  LDA
+    38    293  STA
+    39    294  COM
+    40    295  NEG
+    41    296  MOV
+    42    297  INC
+    43    298  ADC
+    44    299  SUB
+    45    300  ADD
+    46    301  AND
+    47    302  CYCLE
+    48    303  MUL
+    49    304  DIV
+    50    305  JSRII
+    51    306  JSRIS
+    52    307  CONVERT
+    53    308  DIR
+    54    309  EIR
+    55    310  BRI
+    56    311  RCLK
+    57    312  SIO
+    58    313  BLT
+    59    314  BLKS
+    60    315  SIT
+    61    316  JMPRAM
+    62    317  RDRAM
+    63    318  WRTRAM
+    64    319  DIRS
+    65    320  VERS
+    66    321  DREAD
+    67    322  DWRITE
+    68    323  DEXCH
+    69    324  DIAGNOSE1
+    70    325  DIAGNOSE2
+    71    326  BITBLT
+    72    327  XMLDA
+    73    328  XMSTA
+    74    329  DB
+    75    330  DW
+    76    331  DD
+    77    332  DS
+    78    333  ALIGN
+    79    334  END
+    80    335  EQU
+    81    336  EVEN
+    82    337  ORG
+    83    338  $accept
+    84    339  file
+    85    340  expr
+    86    341  simple
+    87    342  term
+    88    343  factor
+    89    344  arith
+    90    345  SrcAC
+    91    346  DstAC
+    92    347  ea
+    93    348  ac23
+    94    349  skip
+    95    350  imm4
+    96    351  disp
+    97    352  rel8
+    98    353  line
+    99    354  token
+   100    355  symdef
+   101    356  imm16list
+   102    357  ac2
+   103    358  imm8list
+   104    359  strlist
+   105    360  imm32list
+   106    361  imm8
+   107    362  imm16
+   108    363  imm32
+   109    364  str
